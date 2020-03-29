@@ -17,13 +17,11 @@ int main (int argc, char** argv)
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     int package = rank;
-    int* recvBuf = 0;
-    if (rank == 0)
-        recvBuf = (int*) calloc (1, sizeof(int));
+    int* recvBuf = (int*) calloc (1, sizeof(int));
 
     MPI_Barrier (MPI_COMM_WORLD);
     startTime = MPI_Wtime();
-    MPI_Reduce (&package, &recvBuf, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce (&package, recvBuf, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     endTime   = MPI_Wtime();
 
     double time = endTime - startTime;
@@ -63,8 +61,8 @@ int main (int argc, char** argv)
                 printf("[%d] std = %lg, time = %lg, mean = %lg\n", stepNum, std, time_1 - time_2, mean);
                 time_2 = time_1;
             }
-            MPI_Bcast(&stop, 1, MPI_CHAR, 0, MPI_COMM_WORLD);
         }
+        MPI_Bcast(&stop, 1, MPI_CHAR, 0, MPI_COMM_WORLD);
     }
 
     if (rank == 0)
