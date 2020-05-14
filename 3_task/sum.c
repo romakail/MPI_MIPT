@@ -48,7 +48,7 @@ int main (int argc, char** argv)
     MPI_Scatter(thresholds    , 1, MPI_INT, &startNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatter(thresholds + 1, 1, MPI_INT, &finalNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    printf ("[%d] start : %d, final : %d\n", rank, startNum, finalNum);
+    // printf ("[%d] start : %d, final : %d\n", rank, startNum, finalNum);
 
     /* Calculaton */
     calcType sum = calcSum(startNum, finalNum);
